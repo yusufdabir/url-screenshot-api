@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Captured Screenshots</title>
+  {% if total == 0 %}
+    <!-- Auto-refresh every 5 seconds if still processing -->
+    <meta http-equiv="refresh" content="5">
+  {% endif %}
+</head>
+<body>
+  <h2>Screenshots for Job ID: {{ job_id }}</h2>
+
+  {% if total == 0 %}
+    <p>⏳ Screenshot is still being processed... Please wait or refresh.</p>
+  {% else %}
+    {% for i in range(0, total) %}
+      <div style="margin-bottom: 30px;">
+        <p>Screenshot {{ i + 1 }}</p>
+        <img src="{{ url_for('serve_screenshot', filename='ss_' ~ job_id ~ '_' ~ i ~ '.png') }}" width="800">
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <a href="{{ url_for('home') }}">⬅️ Go Back</a>
+</body>
+</html>
